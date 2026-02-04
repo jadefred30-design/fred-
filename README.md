@@ -1,6 +1,33 @@
-# Fred - ViralLoop Landing Page
+# Fred - Fan Page Content Repository
 
-A static website landing page for ViralLoop, a growth workspace for creators and brands.
+This repository is for managing fan page content, including clips, images, and captions. Not an impersonation account.
+
+## Local Development
+
+### Option 1: Direct Browser View
+Open `index.html` in your browser to view the site.
+
+### Option 2: Local HTTP Server
+Run a local server for proper asset loading:
+
+```bash
+python3 -m http.server 8000
+```
+
+Then visit `http://localhost:8000`.
+
+## Container Build
+
+This project includes a Dockerfile for containerization.
+
+### Build the Image
+```bash
+docker build -t fred-static .
+```
+
+### Run the Container
+```bash
+docker run -p 8080:80 fred-static
 
 ## Local Development
 
