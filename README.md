@@ -1,71 +1,19 @@
-# Fred - Fan Page Content Repository
+# Stutter Star ⭐
 
-This repository is for managing fan page content, including clips, images, and captions. Not an impersonation account.
+A small browser game inspired by a classic cartoon reaction vibe.
 
-## Local Development
+## Gameplay
+- Move with **Arrow keys** or **WASD**.
+- Collect the highlighted target word in order to build the phrase:
+  **WE LOVE THE WHOLE WORLD**
+- Avoid wrong words or you lose lives.
+- Finish before the timer ends.
 
-### Option 1: Direct Browser View
-Open `index.html` in your browser to view the site.
-
-### Option 2: Local HTTP Server
-Run a local server for proper asset loading:
-
-```bash
-python3 -m http.server 8000
-```
-
-Then visit `http://localhost:8000`.
-
-## Container Build
-
-This project includes a Dockerfile for containerization.
-
-### Build the Image
-```bash
-docker build -t fred-static .
-```
-
-### Run the Container
-```bash
-docker run -p 8080:80 fred-static
-
-## Local Development
-
-### Option 1: Direct Browser View
-Open `index.html` in your browser to view the site.
-
-### Option 2: Local HTTP Server
-Run a local server for proper asset loading:
+## Run locally
+Open `index.html` directly, or serve with:
 
 ```bash
 python3 -m http.server 8000
 ```
 
 Then visit `http://localhost:8000`.
-
-## Container Build
-
-This project includes a Dockerfile for containerization.
-
-### Build the Image
-```bash
-docker build -t fred-static .
-```
-
-### Run the Container
-```bash
-docker run -p 8080:80 fred-static
-```
-
-Then visit `http://localhost:8080`.
-
-## Deployment
-
-The repository includes a GitHub Actions workflow for OpenShift deployment. Push to the main branch to trigger CI/CD.
-
-## Project Structure
-
-- `index.html` - Main landing page
-- `styles.css` - Stylesheet
-- `Dockerfile` - Container build configuration
-- `.github/workflows/openshift.yml` - OpenShift deployment workflow
