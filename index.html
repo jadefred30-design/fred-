@@ -3,202 +3,34 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ViralLoop - Grow Faster, Go Viral</title>
+    <title>Stutter Star: The World We Love</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <header class="hero">
-      <nav class="nav">
-        <div class="logo">ViralLoop</div>
-        <div class="nav-actions">
-          <button class="ghost">Log in</button>
-          <button class="primary">Get early access</button>
-        </div>
-      </nav>
+    <main class="game-shell">
+      <header class="topbar">
+        <h1>Stutter Star ⭐</h1>
+        <p>Collect words and finish the message: <strong>"WE LOVE THE WHOLE WORLD"</strong></p>
+      </header>
 
-      <section class="hero-content">
-        <div>
-          <p class="eyebrow">Go viral in days, not months</p>
-          <h1>Build a follower engine that powers every post.</h1>
-          <p class="subhead">
-            ViralLoop is the growth workspace for creators and brands. Plan your hooks, remix trending
-            clips, and launch automated share campaigns that turn fans into promoters.
-          </p>
-          <div class="hero-cta">
-            <input type="email" placeholder="Enter your email" aria-label="Email address" />
-            <button class="primary">Join the waitlist</button>
-          </div>
-          <div class="trust">
-            <div>
-              <strong>4.9★</strong>
-              <span>Creator satisfaction</span>
-            </div>
-            <div>
-              <strong>12k+</strong>
-              <span>Campaigns launched</span>
-            </div>
-            <div>
-              <strong>3x</strong>
-              <span>Average follower lift</span>
-            </div>
-          </div>
-        </div>
-        <div class="hero-card">
-          <div class="card-header">
-            <span>Growth sprint</span>
-            <span class="badge">Live</span>
-          </div>
-          <div class="metric">
-            <h3>Momentum score</h3>
-            <p class="big">86</p>
-            <p class="muted">Up 24% since last week</p>
-          </div>
-          <div class="metric-grid">
-            <div>
-              <span class="label">Hook win-rate</span>
-              <strong>68%</strong>
-            </div>
-            <div>
-              <span class="label">Share triggers</span>
-              <strong>9 active</strong>
-            </div>
-            <div>
-              <span class="label">Follower surge</span>
-              <strong>+2,310</strong>
-            </div>
-            <div>
-              <span class="label">Next trend</span>
-              <strong>15h</strong>
-            </div>
-          </div>
-        </div>
-      </section>
-    </header>
-
-    <main>
-      <section class="section animation-section">
-        <div class="animation-content">
-          <div>
-            <p class="eyebrow">Animated cartoon</p>
-            <h2>Bring your reactions to life.</h2>
-            <p class="section-sub">
-              A playful cartoon scene with looping blinks, drifting tears, and a gentle bob that keeps
-              the energy moving.
-            </p>
-          </div>
-          <div class="cartoon-stage" aria-hidden="true">
-            <div class="cartoon">
-              <div class="hat"></div>
-              <div class="face">
-                <div class="eye left"><span class="tear"></span></div>
-                <div class="eye right"><span class="tear"></span></div>
-                <div class="mouth"></div>
-                <div class="cheek left"></div>
-                <div class="cheek right"></div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <section class="hud">
+        <div>Score: <span id="score">0</span></div>
+        <div>Lives: <span id="lives">3</span></div>
+        <div>Time: <span id="time">60</span>s</div>
+        <button id="restart" class="btn">Restart</button>
       </section>
 
-      <section class="section">
-        <h2>Everything you need to go viral</h2>
-        <p class="section-sub">
-          ViralLoop combines strategy, production, and distribution so you can build repeatable growth.
-        </p>
-        <div class="feature-grid">
-          <article>
-            <h3>Trend radar</h3>
-            <p>Monitor emerging audio, topics, and formats before they hit your niche.</p>
-          </article>
-          <article>
-            <h3>Hook lab</h3>
-            <p>Generate, test, and score opening hooks that stop the scroll.</p>
-          </article>
-          <article>
-            <h3>Share loops</h3>
-            <p>Launch automated challenges, referral prompts, and reward drops.</p>
-          </article>
-          <article>
-            <h3>Creator CRM</h3>
-            <p>Track collabs, shoutouts, and influencer partnerships in one board.</p>
-          </article>
-          <article>
-            <h3>AI captioning</h3>
-            <p>Write captions tailored to platform algorithms and fan sentiment.</p>
-          </article>
-          <article>
-            <h3>Launch playbooks</h3>
-            <p>Ready-made viral blueprints for TikTok, Reels, Shorts, and X.</p>
-          </article>
-        </div>
+      <section id="arena" aria-label="game arena">
+        <div id="player" aria-label="player"></div>
       </section>
 
-      <section class="section alt">
-        <div class="split">
-          <div>
-            <h2>Turn every fan into a promoter</h2>
-            <p>
-              ViralLoop orchestrates share loops that reward your audience for spreading the word.
-              Set goals, automate reminders, and watch your community multiply.
-            </p>
-            <ul class="checklist">
-              <li>Custom referral rewards and spotlight tiers.</li>
-              <li>Automated DM and email flows for new fans.</li>
-              <li>Analytics that explain why you’re trending.</li>
-            </ul>
-          </div>
-          <div class="panel">
-            <h3>Weekly viral plan</h3>
-            <div class="panel-item">
-              <span>Monday</span>
-              <strong>Trend sniping + hook test</strong>
-            </div>
-            <div class="panel-item">
-              <span>Wednesday</span>
-              <strong>Collab post + dual live</strong>
-            </div>
-            <div class="panel-item">
-              <span>Friday</span>
-              <strong>Share challenge + giveaway</strong>
-            </div>
-            <button class="primary full">Download your plan</button>
-          </div>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>Creators are growing faster</h2>
-        <div class="testimonial-grid">
-          <figure>
-            <blockquote>
-              “We doubled our follower growth in two weeks by using the hook lab and share loops.”
-            </blockquote>
-            <figcaption>— Jada, lifestyle creator</figcaption>
-          </figure>
-          <figure>
-            <blockquote>
-              “The trend radar keeps us ahead of the curve. We never miss a wave now.”
-            </blockquote>
-            <figcaption>— Rowan, content strategist</figcaption>
-          </figure>
-          <figure>
-            <blockquote>
-              “It feels like having a growth team in our pocket. Everything is organized and automated.”
-            </blockquote>
-            <figcaption>— Marco, startup founder</figcaption>
-          </figure>
-        </div>
+      <section class="goal">
+        <h2>Message Builder</h2>
+        <p id="progress"></p>
+        <p id="status">Use arrow keys (or WASD) to move. Touch the next word in order.</p>
       </section>
     </main>
 
-    <footer class="footer">
-      <div>
-        <h3>Ready to go viral?</h3>
-        <p>Join the waitlist and get the ViralLoop launch kit.</p>
-      </div>
-      <button class="primary">Get early access</button>
-    </footer>
+    <script src="game.js"></script>
   </body>
 </html>
-<address></address>Generated by OpenAI's GPT-4 model. U9JUU
