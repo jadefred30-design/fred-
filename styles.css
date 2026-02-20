@@ -12,6 +12,7 @@ body {
   min-height: 100vh;
   overflow: hidden;
   background: #0f5ea8;
+  touch-action: none;
 }
 
 .game-shell {
@@ -71,6 +72,11 @@ canvas {
   margin: 0.4rem 0;
 }
 
+.panel .best-line {
+  margin-top: 0;
+  color: rgba(255, 255, 255, 0.84);
+}
+
 .panel ul {
   margin: 0.75rem 0 1rem 1rem;
   padding: 0;
@@ -119,7 +125,7 @@ button {
 
 @media (pointer: fine) {
   .touch-controls {
-    opacity: 0.25;
+    opacity: 0.3;
   }
 
   .touch-controls:hover {

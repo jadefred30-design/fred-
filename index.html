@@ -11,6 +11,7 @@
       <header class="hud" aria-live="polite">
         <p>Score: <span id="score">0</span></p>
         <p>Time: <span id="time">60</span>s</p>
+        <p>Best: <span id="best">0</span></p>
       </header>
 
       <section class="overlay show" id="startOverlay">
@@ -22,7 +23,7 @@
             <li>Touch squid = <strong>-2</strong></li>
             <li>60-second score challenge</li>
           </ul>
-          <button id="startBtn">Start Game</button>
+          <button id="startBtn" type="button">Start Game</button>
         </div>
       </section>
 
@@ -30,18 +31,19 @@
         <div class="panel">
           <h2>Time's up!</h2>
           <p>Your final score: <strong id="finalScore">0</strong></p>
-          <button id="restartBtn">Play Again</button>
+          <p class="best-line">Best score: <strong id="finalBest">0</strong></p>
+          <button id="restartBtn" type="button">Play Again</button>
         </div>
       </section>
 
       <canvas id="gameCanvas" aria-label="Patrick Jelly Rush game"></canvas>
 
       <div class="touch-controls" aria-label="Mobile movement controls">
-        <button data-dir="up">▲</button>
+        <button data-dir="up" type="button" aria-label="Move up">▲</button>
         <div>
-          <button data-dir="left">◀</button>
-          <button data-dir="down">▼</button>
-          <button data-dir="right">▶</button>
+          <button data-dir="left" type="button" aria-label="Move left">◀</button>
+          <button data-dir="down" type="button" aria-label="Move down">▼</button>
+          <button data-dir="right" type="button" aria-label="Move right">▶</button>
         </div>
       </div>
     </main>
@@ -51,7 +53,9 @@
       const ctx = canvas.getContext("2d");
       const scoreEl = document.getElementById("score");
       const timeEl = document.getElementById("time");
+      const bestEl = document.getElementById("best");
       const finalScoreEl = document.getElementById("finalScore");
+      const finalBestEl = document.getElementById("finalBest");
       const startOverlay = document.getElementById("startOverlay");
       const endOverlay = document.getElementById("endOverlay");
       const startBtn = document.getElementById("startBtn");
@@ -60,18 +64,34 @@
 
       const keys = {};
       const touchState = { up: false, down: false, left: false, right: false };
-      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+      let audioCtx = null;
 
       const state = {
         running: false,
         score: 0,
         time: 60,
         timerId: null,
+        best: Number(localStorage.getItem("patrickBestScore") || 0),
       };
 
-      const player = { x: 140, y: 140, size: 26, speed: 4.2 };
+      const player = {
+        x: 140,
+        y: 140,
+        size: 26,
+        speed: 4.2,
+        hitCooldownMs: 450,
+        lastHitAt: 0,
+      };
+
       const jellyfish = [];
       const squids = [];
+
+      function ensureAudioContext() {
+        if (!audioCtx && (window.AudioContext || window.webkitAudioContext)) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+      }
 
       function resizeCanvas() {
         canvas.width = window.innerWidth;
@@ -82,18 +102,24 @@
         return Math.random() * (max - min) + min;
       }
 
+      function updateBestScore() {
+        if (state.score > state.best) {
+          state.best = state.score;
+          localStorage.setItem("patrickBestScore", String(state.best));
+        }
+        bestEl.textContent = String(state.best);
+        finalBestEl.textContent = String(state.best);
+      }
+
       function resetEntities() {
         jellyfish.length = 0;
         squids.length = 0;
         player.x = canvas.width * 0.2;
         player.y = canvas.height * 0.5;
+        player.lastHitAt = 0;
 
-        for (let i = 0; i < 8; i += 1) {
-          spawnJelly();
-        }
-        for (let i = 0; i < 4; i += 1) {
-          spawnSquid();
-        }
+        for (let i = 0; i < 8; i += 1) spawnJelly();
+        for (let i = 0; i < 4; i += 1) spawnSquid();
       }
 
       function spawnJelly() {
@@ -115,6 +141,7 @@
       }
 
       function playTone(frequency, duration = 0.08, type = "sine") {
+        if (!audioCtx || audioCtx.state === "suspended") return;
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
         osc.type = type;
@@ -163,6 +190,9 @@
 
       function drawPatrick() {
         const { x, y, size } = player;
+        const isHurt = performance.now() - player.lastHitAt < player.hitCooldownMs;
+
+        ctx.globalAlpha = isHurt ? 0.75 : 1;
         ctx.fillStyle = "#f6a19d";
         ctx.beginPath();
         ctx.moveTo(x, y - size * 1.6);
@@ -185,6 +215,7 @@
 
         ctx.fillStyle = "#86c564";
         ctx.fillRect(x - size * 0.68, y + size * 0.46, size * 1.36, size * 0.5);
+        ctx.globalAlpha = 1;
       }
 
       function drawJelly(jelly) {
@@ -244,9 +275,13 @@
           if (squid.y < squid.radius || squid.y > canvas.height - squid.radius) squid.vy *= -1;
 
           if (distance(player, squid) < player.size + squid.radius - 8) {
-            state.score = Math.max(0, state.score - 2);
-            scoreEl.textContent = state.score;
-            playTone(170, 0.12, "square");
+            const now = performance.now();
+            if (now - player.lastHitAt >= player.hitCooldownMs) {
+              player.lastHitAt = now;
+              state.score = Math.max(0, state.score - 2);
+              scoreEl.textContent = String(state.score);
+              playTone(170, 0.12, "square");
+            }
           }
         }
 
@@ -255,7 +290,7 @@
             jellyfish.splice(i, 1);
             spawnJelly();
             state.score += 1;
-            scoreEl.textContent = state.score;
+            scoreEl.textContent = String(state.score);
             playTone(520, 0.1, "triangle");
             if (state.score % 10 === 0) spawnSquid();
           }
@@ -278,12 +313,17 @@
       function stopGame() {
         state.running = false;
         clearInterval(state.timerId);
-        finalScoreEl.textContent = state.score;
+        updateBestScore();
+        finalScoreEl.textContent = String(state.score);
         endOverlay.classList.add("show");
       }
 
       function startGame() {
-        audioCtx.resume();
+        ensureAudioContext();
+        if (audioCtx && audioCtx.state !== "running") {
+          audioCtx.resume().catch(() => {});
+        }
+
         state.running = true;
         state.score = 0;
         state.time = 60;
@@ -297,7 +337,7 @@
         state.timerId = setInterval(() => {
           if (!state.running) return;
           state.time -= 1;
-          timeEl.textContent = state.time;
+          timeEl.textContent = String(state.time);
           if (state.time <= 0) stopGame();
         }, 1000);
       }
@@ -321,6 +361,7 @@
           setTouchButton(button, true);
         });
         button.addEventListener("touchend", () => setTouchButton(button, false));
+        button.addEventListener("touchcancel", () => setTouchButton(button, false));
         button.addEventListener("mousedown", () => setTouchButton(button, true));
         button.addEventListener("mouseup", () => setTouchButton(button, false));
         button.addEventListener("mouseleave", () => setTouchButton(button, false));
@@ -332,6 +373,7 @@
 
       resizeCanvas();
       resetEntities();
+      updateBestScore();
       tick();
     </script>
   </body>
