@@ -3,202 +3,378 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ViralLoop - Grow Faster, Go Viral</title>
+    <title>Patrick's Jelly Rush</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <header class="hero">
-      <nav class="nav">
-        <div class="logo">ViralLoop</div>
-        <div class="nav-actions">
-          <button class="ghost">Log in</button>
-          <button class="primary">Get early access</button>
-        </div>
-      </nav>
+    <main class="game-shell">
+      <header class="hud" aria-live="polite">
+        <p>Score: <span id="score">0</span></p>
+        <p>Time: <span id="time">60</span>s</p>
+        <p>Best: <span id="best">0</span></p>
+      </header>
 
-      <section class="hero-content">
+      <section class="overlay show" id="startOverlay">
+        <div class="panel">
+          <h1>Patrick's Jelly Rush</h1>
+          <p>WASD or Arrow keys to move Patrick.</p>
+          <ul>
+            <li>Collect pink jellyfish = <strong>+1</strong></li>
+            <li>Touch squid = <strong>-2</strong></li>
+            <li>60-second score challenge</li>
+          </ul>
+          <button id="startBtn" type="button">Start Game</button>
+        </div>
+      </section>
+
+      <section class="overlay" id="endOverlay">
+        <div class="panel">
+          <h2>Time's up!</h2>
+          <p>Your final score: <strong id="finalScore">0</strong></p>
+          <p class="best-line">Best score: <strong id="finalBest">0</strong></p>
+          <button id="restartBtn" type="button">Play Again</button>
+        </div>
+      </section>
+
+      <canvas id="gameCanvas" aria-label="Patrick Jelly Rush game"></canvas>
+
+      <div class="touch-controls" aria-label="Mobile movement controls">
+        <button data-dir="up" type="button" aria-label="Move up">▲</button>
         <div>
-          <p class="eyebrow">Go viral in days, not months</p>
-          <h1>Build a follower engine that powers every post.</h1>
-          <p class="subhead">
-            ViralLoop is the growth workspace for creators and brands. Plan your hooks, remix trending
-            clips, and launch automated share campaigns that turn fans into promoters.
-          </p>
-          <div class="hero-cta">
-            <input type="email" placeholder="Enter your email" aria-label="Email address" />
-            <button class="primary">Join the waitlist</button>
-          </div>
-          <div class="trust">
-            <div>
-              <strong>4.9★</strong>
-              <span>Creator satisfaction</span>
-            </div>
-            <div>
-              <strong>12k+</strong>
-              <span>Campaigns launched</span>
-            </div>
-            <div>
-              <strong>3x</strong>
-              <span>Average follower lift</span>
-            </div>
-          </div>
+          <button data-dir="left" type="button" aria-label="Move left">◀</button>
+          <button data-dir="down" type="button" aria-label="Move down">▼</button>
+          <button data-dir="right" type="button" aria-label="Move right">▶</button>
         </div>
-        <div class="hero-card">
-          <div class="card-header">
-            <span>Growth sprint</span>
-            <span class="badge">Live</span>
-          </div>
-          <div class="metric">
-            <h3>Momentum score</h3>
-            <p class="big">86</p>
-            <p class="muted">Up 24% since last week</p>
-          </div>
-          <div class="metric-grid">
-            <div>
-              <span class="label">Hook win-rate</span>
-              <strong>68%</strong>
-            </div>
-            <div>
-              <span class="label">Share triggers</span>
-              <strong>9 active</strong>
-            </div>
-            <div>
-              <span class="label">Follower surge</span>
-              <strong>+2,310</strong>
-            </div>
-            <div>
-              <span class="label">Next trend</span>
-              <strong>15h</strong>
-            </div>
-          </div>
-        </div>
-      </section>
-    </header>
-
-    <main>
-      <section class="section animation-section">
-        <div class="animation-content">
-          <div>
-            <p class="eyebrow">Animated cartoon</p>
-            <h2>Bring your reactions to life.</h2>
-            <p class="section-sub">
-              A playful cartoon scene with looping blinks, drifting tears, and a gentle bob that keeps
-              the energy moving.
-            </p>
-          </div>
-          <div class="cartoon-stage" aria-hidden="true">
-            <div class="cartoon">
-              <div class="hat"></div>
-              <div class="face">
-                <div class="eye left"><span class="tear"></span></div>
-                <div class="eye right"><span class="tear"></span></div>
-                <div class="mouth"></div>
-                <div class="cheek left"></div>
-                <div class="cheek right"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>Everything you need to go viral</h2>
-        <p class="section-sub">
-          ViralLoop combines strategy, production, and distribution so you can build repeatable growth.
-        </p>
-        <div class="feature-grid">
-          <article>
-            <h3>Trend radar</h3>
-            <p>Monitor emerging audio, topics, and formats before they hit your niche.</p>
-          </article>
-          <article>
-            <h3>Hook lab</h3>
-            <p>Generate, test, and score opening hooks that stop the scroll.</p>
-          </article>
-          <article>
-            <h3>Share loops</h3>
-            <p>Launch automated challenges, referral prompts, and reward drops.</p>
-          </article>
-          <article>
-            <h3>Creator CRM</h3>
-            <p>Track collabs, shoutouts, and influencer partnerships in one board.</p>
-          </article>
-          <article>
-            <h3>AI captioning</h3>
-            <p>Write captions tailored to platform algorithms and fan sentiment.</p>
-          </article>
-          <article>
-            <h3>Launch playbooks</h3>
-            <p>Ready-made viral blueprints for TikTok, Reels, Shorts, and X.</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="section alt">
-        <div class="split">
-          <div>
-            <h2>Turn every fan into a promoter</h2>
-            <p>
-              ViralLoop orchestrates share loops that reward your audience for spreading the word.
-              Set goals, automate reminders, and watch your community multiply.
-            </p>
-            <ul class="checklist">
-              <li>Custom referral rewards and spotlight tiers.</li>
-              <li>Automated DM and email flows for new fans.</li>
-              <li>Analytics that explain why you’re trending.</li>
-            </ul>
-          </div>
-          <div class="panel">
-            <h3>Weekly viral plan</h3>
-            <div class="panel-item">
-              <span>Monday</span>
-              <strong>Trend sniping + hook test</strong>
-            </div>
-            <div class="panel-item">
-              <span>Wednesday</span>
-              <strong>Collab post + dual live</strong>
-            </div>
-            <div class="panel-item">
-              <span>Friday</span>
-              <strong>Share challenge + giveaway</strong>
-            </div>
-            <button class="primary full">Download your plan</button>
-          </div>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>Creators are growing faster</h2>
-        <div class="testimonial-grid">
-          <figure>
-            <blockquote>
-              “We doubled our follower growth in two weeks by using the hook lab and share loops.”
-            </blockquote>
-            <figcaption>— Jada, lifestyle creator</figcaption>
-          </figure>
-          <figure>
-            <blockquote>
-              “The trend radar keeps us ahead of the curve. We never miss a wave now.”
-            </blockquote>
-            <figcaption>— Rowan, content strategist</figcaption>
-          </figure>
-          <figure>
-            <blockquote>
-              “It feels like having a growth team in our pocket. Everything is organized and automated.”
-            </blockquote>
-            <figcaption>— Marco, startup founder</figcaption>
-          </figure>
-        </div>
-      </section>
+      </div>
     </main>
 
-    <footer class="footer">
-      <div>
-        <h3>Ready to go viral?</h3>
-        <p>Join the waitlist and get the ViralLoop launch kit.</p>
-      </div>
-      <button class="primary">Get early access</button>
-    </footer>
+    <script>
+      const canvas = document.getElementById("gameCanvas");
+      const ctx = canvas.getContext("2d");
+      const scoreEl = document.getElementById("score");
+      const timeEl = document.getElementById("time");
+      const bestEl = document.getElementById("best");
+      const finalScoreEl = document.getElementById("finalScore");
+      const finalBestEl = document.getElementById("finalBest");
+      const startOverlay = document.getElementById("startOverlay");
+      const endOverlay = document.getElementById("endOverlay");
+      const startBtn = document.getElementById("startBtn");
+      const restartBtn = document.getElementById("restartBtn");
+      const touchButtons = document.querySelectorAll(".touch-controls button");
+
+      const keys = {};
+      const touchState = { up: false, down: false, left: false, right: false };
+
+      let audioCtx = null;
+
+      const state = {
+        running: false,
+        score: 0,
+        time: 60,
+        timerId: null,
+        best: Number(localStorage.getItem("patrickBestScore") || 0),
+      };
+
+      const player = {
+        x: 140,
+        y: 140,
+        size: 26,
+        speed: 4.2,
+        hitCooldownMs: 450,
+        lastHitAt: 0,
+      };
+
+      const jellyfish = [];
+      const squids = [];
+
+      function ensureAudioContext() {
+        if (!audioCtx && (window.AudioContext || window.webkitAudioContext)) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+      }
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+
+      function random(min, max) {
+        return Math.random() * (max - min) + min;
+      }
+
+      function updateBestScore() {
+        if (state.score > state.best) {
+          state.best = state.score;
+          localStorage.setItem("patrickBestScore", String(state.best));
+        }
+        bestEl.textContent = String(state.best);
+        finalBestEl.textContent = String(state.best);
+      }
+
+      function resetEntities() {
+        jellyfish.length = 0;
+        squids.length = 0;
+        player.x = canvas.width * 0.2;
+        player.y = canvas.height * 0.5;
+        player.lastHitAt = 0;
+
+        for (let i = 0; i < 8; i += 1) spawnJelly();
+        for (let i = 0; i < 4; i += 1) spawnSquid();
+      }
+
+      function spawnJelly() {
+        jellyfish.push({
+          x: random(40, canvas.width - 40),
+          y: random(40, canvas.height - 40),
+          radius: 14,
+        });
+      }
+
+      function spawnSquid() {
+        squids.push({
+          x: random(60, canvas.width - 60),
+          y: random(60, canvas.height - 60),
+          radius: 24,
+          vx: random(-2, 2) || 1.3,
+          vy: random(-2, 2) || -1.4,
+        });
+      }
+
+      function playTone(frequency, duration = 0.08, type = "sine") {
+        if (!audioCtx || audioCtx.state === "suspended") return;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.value = frequency;
+        gain.gain.value = 0.06;
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      }
+
+      function drawBackground() {
+        const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+        gradient.addColorStop(0, "#65dcff");
+        gradient.addColorStop(0.5, "#30b8e6");
+        gradient.addColorStop(1, "#0e78c8");
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        const colors = ["#e096ff", "#95f4c6", "#ffc0f8"];
+        for (let i = 0; i < 12; i += 1) {
+          const x = (i * 271) % canvas.width;
+          const y = ((i * 193) + 40) % canvas.height;
+          drawFlower(x, y, 18 + (i % 3) * 8, colors[i % colors.length]);
+        }
+      }
+
+      function drawFlower(x, y, size, color) {
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 2;
+        for (let i = 0; i < 5; i += 1) {
+          const angle = i * ((Math.PI * 2) / 5);
+          ctx.beginPath();
+          ctx.ellipse(
+            x + Math.cos(angle) * size,
+            y + Math.sin(angle) * size,
+            size * 0.75,
+            size * 0.35,
+            angle,
+            0,
+            Math.PI * 2
+          );
+          ctx.stroke();
+        }
+      }
+
+      function drawPatrick() {
+        const { x, y, size } = player;
+        const isHurt = performance.now() - player.lastHitAt < player.hitCooldownMs;
+
+        ctx.globalAlpha = isHurt ? 0.75 : 1;
+        ctx.fillStyle = "#f6a19d";
+        ctx.beginPath();
+        ctx.moveTo(x, y - size * 1.6);
+        ctx.lineTo(x - size, y + size);
+        ctx.lineTo(x + size, y + size);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.fillStyle = "#fff";
+        ctx.beginPath();
+        ctx.arc(x - 8, y - 10, 6, 0, Math.PI * 2);
+        ctx.arc(x + 8, y - 10, 6, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = "#212121";
+        ctx.beginPath();
+        ctx.arc(x - 8, y - 10, 2.4, 0, Math.PI * 2);
+        ctx.arc(x + 8, y - 10, 2.4, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = "#86c564";
+        ctx.fillRect(x - size * 0.68, y + size * 0.46, size * 1.36, size * 0.5);
+        ctx.globalAlpha = 1;
+      }
+
+      function drawJelly(jelly) {
+        ctx.fillStyle = "#ff77e8";
+        ctx.beginPath();
+        ctx.arc(jelly.x, jelly.y, jelly.radius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = "#ffffff";
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(jelly.x - 6, jelly.y + 10);
+        ctx.lineTo(jelly.x - 7, jelly.y + 21);
+        ctx.moveTo(jelly.x, jelly.y + 10);
+        ctx.lineTo(jelly.x, jelly.y + 23);
+        ctx.moveTo(jelly.x + 6, jelly.y + 10);
+        ctx.lineTo(jelly.x + 7, jelly.y + 21);
+        ctx.stroke();
+      }
+
+      function drawSquid(squid) {
+        ctx.fillStyle = "#867eff";
+        ctx.beginPath();
+        ctx.arc(squid.x, squid.y, squid.radius, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = "#201f2b";
+        ctx.beginPath();
+        ctx.arc(squid.x - 8, squid.y - 4, 3, 0, Math.PI * 2);
+        ctx.arc(squid.x + 8, squid.y - 4, 3, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      function distance(a, b) {
+        return Math.hypot(a.x - b.x, a.y - b.y);
+      }
+
+      function movePlayer() {
+        if (keys.a || keys.arrowleft || touchState.left) player.x -= player.speed;
+        if (keys.d || keys.arrowright || touchState.right) player.x += player.speed;
+        if (keys.w || keys.arrowup || touchState.up) player.y -= player.speed;
+        if (keys.s || keys.arrowdown || touchState.down) player.y += player.speed;
+
+        player.x = Math.max(player.size, Math.min(canvas.width - player.size, player.x));
+        player.y = Math.max(player.size, Math.min(canvas.height - player.size, player.y));
+      }
+
+      function updateGame() {
+        if (!state.running) return;
+
+        movePlayer();
+
+        for (const squid of squids) {
+          squid.x += squid.vx;
+          squid.y += squid.vy;
+
+          if (squid.x < squid.radius || squid.x > canvas.width - squid.radius) squid.vx *= -1;
+          if (squid.y < squid.radius || squid.y > canvas.height - squid.radius) squid.vy *= -1;
+
+          if (distance(player, squid) < player.size + squid.radius - 8) {
+            const now = performance.now();
+            if (now - player.lastHitAt >= player.hitCooldownMs) {
+              player.lastHitAt = now;
+              state.score = Math.max(0, state.score - 2);
+              scoreEl.textContent = String(state.score);
+              playTone(170, 0.12, "square");
+            }
+          }
+        }
+
+        for (let i = jellyfish.length - 1; i >= 0; i -= 1) {
+          if (distance(player, jellyfish[i]) < player.size + jellyfish[i].radius) {
+            jellyfish.splice(i, 1);
+            spawnJelly();
+            state.score += 1;
+            scoreEl.textContent = String(state.score);
+            playTone(520, 0.1, "triangle");
+            if (state.score % 10 === 0) spawnSquid();
+          }
+        }
+      }
+
+      function render() {
+        drawBackground();
+        jellyfish.forEach(drawJelly);
+        squids.forEach(drawSquid);
+        drawPatrick();
+      }
+
+      function tick() {
+        updateGame();
+        render();
+        requestAnimationFrame(tick);
+      }
+
+      function stopGame() {
+        state.running = false;
+        clearInterval(state.timerId);
+        updateBestScore();
+        finalScoreEl.textContent = String(state.score);
+        endOverlay.classList.add("show");
+      }
+
+      function startGame() {
+        ensureAudioContext();
+        if (audioCtx && audioCtx.state !== "running") {
+          audioCtx.resume().catch(() => {});
+        }
+
+        state.running = true;
+        state.score = 0;
+        state.time = 60;
+        scoreEl.textContent = "0";
+        timeEl.textContent = "60";
+        startOverlay.classList.remove("show");
+        endOverlay.classList.remove("show");
+        resetEntities();
+
+        clearInterval(state.timerId);
+        state.timerId = setInterval(() => {
+          if (!state.running) return;
+          state.time -= 1;
+          timeEl.textContent = String(state.time);
+          if (state.time <= 0) stopGame();
+        }, 1000);
+      }
+
+      window.addEventListener("keydown", (event) => {
+        keys[event.key.toLowerCase()] = true;
+      });
+
+      window.addEventListener("keyup", (event) => {
+        keys[event.key.toLowerCase()] = false;
+      });
+
+      function setTouchButton(button, isPressed) {
+        const direction = button.dataset.dir;
+        if (direction) touchState[direction] = isPressed;
+      }
+
+      touchButtons.forEach((button) => {
+        button.addEventListener("touchstart", (event) => {
+          event.preventDefault();
+          setTouchButton(button, true);
+        });
+        button.addEventListener("touchend", () => setTouchButton(button, false));
+        button.addEventListener("touchcancel", () => setTouchButton(button, false));
+        button.addEventListener("mousedown", () => setTouchButton(button, true));
+        button.addEventListener("mouseup", () => setTouchButton(button, false));
+        button.addEventListener("mouseleave", () => setTouchButton(button, false));
+      });
+
+      startBtn.addEventListener("click", startGame);
+      restartBtn.addEventListener("click", startGame);
+      window.addEventListener("resize", resizeCanvas);
+
+      resizeCanvas();
+      resetEntities();
+      updateBestScore();
+      tick();
+    </script>
   </body>
 </html>
-<address></address>Generated by OpenAI's GPT-4 model. U9JUU
